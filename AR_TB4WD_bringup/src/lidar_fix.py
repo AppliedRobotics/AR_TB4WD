@@ -27,6 +27,6 @@ def lidar_cb(data):
 
 if __name__ == '__main__':
 	rospy.init_node('remap_scan_node',anonymous=True)
-	rospy.Subscriber("scan",LaserScan, lidar_cb)
-	publisher = rospy.Publisher('scan_fixed',LaserScan,queue_size=10)
+	rospy.Subscriber("scan_bad",LaserScan, lidar_cb)
+	publisher = rospy.Publisher('scan',LaserScan,queue_size=10)
 	rospy.spin()

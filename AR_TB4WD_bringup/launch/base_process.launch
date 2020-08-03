@@ -4,5 +4,6 @@
     <param name="baud" value="1000000"/>
   </node>
   <node pkg="AR_TB4WD_bringup" type="odom.py" name="odom_node"/>
+  <node pkg="AR_TB4WD_bringup" type="lidar_fix.py" name="lidar_fix"/>
   <include file="$(find hls_lfcd_lds_driver)/launch/hlds_laser.launch"/>
 </launch>
