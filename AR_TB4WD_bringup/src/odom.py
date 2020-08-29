@@ -1,4 +1,4 @@
-#!/usr/bin/env python  
+#!/usr/bin/env python3  
 #include libraries
 import rospy
 import tf
@@ -66,8 +66,8 @@ def calculate_odom(delta,vel0,vel1,vel2,vel3):
     Vx=(vel0+vel1-vel2-vel3)*(R/4)
     Vy=(-vel0-vel2+vel3+vel1)*(R/4)
     Vtheta=(-vel0+vel2-vel3+vel1)*(R/(4*wheel_separation))
-    print "vx: "+str(Vx)
-    print "vy: "+str(Vy)
+    # print("vx: "+str(Vx))
+    # print("vy: "+str(Vy))
     theta += delta*Vtheta
     x += delta* (cos(theta)*Vx - sin(theta)*Vy)
     y += delta* (sin(theta)*Vx + cos(theta)*Vy)
@@ -79,7 +79,7 @@ if __name__ == '__main__':
     timeold = rospy.get_time()
     rospy.Subscriber("joint_state",JointState,jstatecb)
     rospy.spin()
-    print ("im here")
+    # print ("im here")
     rate = rospy.Rate(10)
     while not rospy.is_shutdown():
         rospy.spin()
