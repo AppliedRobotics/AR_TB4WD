@@ -11,21 +11,21 @@ jointstates = JointState()
 
 jointstates.name = ['wheel0','wheel1','wheel2','wheel3']
 
-rospy.init_node('odom_node',anonymous=True)
-
 pubodom = rospy.Publisher('odom',Odometry,queue_size=10)
 
 broadcaster = tf.TransformBroadcaster()
+map_broadcaster = tf.TransformBroadcaster()
+
 timeold=0
 
 vel = Twist()
 
 x=y=theta=0
-
+counter = 0
 def jstatecb(jointstatesraw):
     global jointstates
     global timeold
-    global x,y,theta
+    global x,y,theta, counter
     
     jointstates.velocity= jointstatesraw.velocity
     jointstates.effort= jointstatesraw.effort
@@ -39,13 +39,8 @@ def jstatecb(jointstatesraw):
         current_time = timenew
         timeold = timenew
         Vx,Vy, Vtheta = calculate_odom(delta, jointstates.velocity[0], jointstates.velocity[1],jointstates.velocity[2], jointstates.velocity[3])
-        
-        lidar_quat = tf.transformations.quaternion_from_euler(0,0,pi)
-        broadcaster.sendTransform((0.1,0.0,0.1),lidar_quat,time,"laser","base_link")
         odom_quat = tf.transformations.quaternion_from_euler(0,0,theta)
-       
-        broadcaster.sendTransform((x,y,0.0),odom_quat,time,"base_link","odom")
-        # broadcaster.sendTransform((0,0,0), odom_quat, time, "odom", "map")
+       	broadcaster.sendTransform((x,y,0.0),odom_quat,rospy.Time.now(),"base_link","odom")
         odom = Odometry()
         odom.header.stamp = time
         odom.header.frame_id = "odom"
@@ -57,7 +52,6 @@ def jstatecb(jointstatesraw):
         odom.twist.covariance[35] = 0.01
         #publishing  
         pubodom.publish(odom)
-        
 def calculate_odom(delta,vel0,vel1,vel2,vel3):
     global x, y, theta
     R = 0.05
@@ -69,20 +63,21 @@ def calculate_odom(delta,vel0,vel1,vel2,vel3):
     # print("vx: "+str(Vx))
     # print("vy: "+str(Vy))
     theta += delta*Vtheta
-    x += delta* (cos(theta)*Vx - sin(theta)*Vy)
-    y += delta* (sin(theta)*Vx + cos(theta)*Vy)
-    return Vx,Vy,Vtheta
-
+    if Vx <= 2 and Vy <= 2 and Vtheta <= 4:
+    	x += delta* (cos(theta)*Vx - sin(theta)*Vy)
+    	y += delta* (sin(theta)*Vx + cos(theta)*Vy)
+    	return Vx,Vy,Vtheta
+    else:
+    	return 0,0,0
     
 if __name__ == '__main__':
-
-    timeold = rospy.get_time()
-    rospy.Subscriber("joint_state",JointState,jstatecb)
-    rospy.spin()
-    # print ("im here")
-    rate = rospy.Rate(10)
-    while not rospy.is_shutdown():
-        rospy.spin()
-        rate.sleep()
-
-
+	rospy.init_node('odom_node',anonymous=False)
+	rospy.Subscriber("joint_state",JointState,jstatecb)
+	timeold = rospy.get_time()
+	while not rospy.is_shutdown():
+		tc_left_quat = tf.transformations.quaternion_from_euler(0,0,pi/2)
+		lidar_quat = tf.transformations.quaternion_from_euler(0,0,pi)
+		# map_broadcaster.sendTransform((0,0,0), (0,0,0,1), rospy.Time.now(), "odom", "map")
+		map_broadcaster.sendTransform((0.1,0.0,0.1),lidar_quat,rospy.Time.now(),"laser","base_link")
+		rospy.sleep(1)
+		

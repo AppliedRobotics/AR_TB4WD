@@ -1,0 +1,9 @@
+recovery_behaviors: [{name: conservative_clear, type: clear_costmap_recovery/ClearCostmapRecovery}, 
+                     {name: aggressive_clear, type: rotate_recovery/RotateRecovery}]
+
+conservative_clear:
+  reset_distance: 10.0
+
+aggressive_clear:
+  sim_granuality: 0.017
+  frequency: 10.0

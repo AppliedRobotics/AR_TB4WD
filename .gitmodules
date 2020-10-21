@@ -4,3 +4,9 @@
 [submodule "rosserial"]
 	path = rosserial
 	url = https://github.com/ros-drivers/rosserial.git
+[submodule "tc3-ros-package"]
+	path = tc3-ros-package
+	url = https://github.com/AppliedRobotics/tc3-ros-package.git
+[submodule "slam_gmapping"]
+	path = slam_gmapping
+	url = https://github.com/ros-perception/slam_gmapping.git

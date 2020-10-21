@@ -4,5 +4,9 @@
   <node pkg="AR_TB4WD_bringup" type="serial_script.py" name="rosserial_client"/>
   <node pkg="AR_TB4WD_bringup" type="odom.py" name="odom_node"/>
   <node pkg="AR_TB4WD_bringup" type="lidar_fix.py" name="lidar_fix"/>
-  <include file="$(find hls_lfcd_lds_driver)/launch/hlds_laser.launch"/>
+  <node pkg="hls_lfcd_lds_driver" type="hlds_laser_publisher" name="hlds_laser_publisher" output="screen">
+    <param name="port" value="/dev/ttyUSB0"/>
+    <param name="frame_id" value="laser"/>
+    <remap from="scan" to="scan_bad"/>
+  </node>
 </launch>

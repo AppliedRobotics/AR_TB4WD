@@ -1,0 +1,13 @@
+<launch>
+	<arg name="rviz" default="false"/>
+	<group ns="/ar_tb4wd">
+		<param name="/ar_tb4wd/robot_description" command="$(find xacro)/xacro --inorder '$(find AR_TB4WD_model)/urdf/AR_TB4WD_model.urdf'"/>
+		<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output = "screen"/>
+
+	</group>
+	<node type = "model_control_node.py" name = "model_control" pkg = "AR_TB4WD_model" output = "screen"/> 
+<!--	<node type = "odom.py" name = "odom" pkg = "AR_TB4WD_model" output = "screen"/> --> 
+	<group if="$(arg rviz)">	
+		<node name="rviz" pkg="rviz" type="rviz" args="-d $(find  AR_TB4WD_model)/rviz/rviz.rviz"/>
+	</group>
+</launch>

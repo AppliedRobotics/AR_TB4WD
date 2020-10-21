@@ -3,7 +3,7 @@
   <arg name="set_base_frame" default="base_link"/>
   <arg name="set_odom_frame" default="odom"/>
   <arg name="set_map_frame"  default="map"/>
-  
+  <arg name="rviz" default="false"/>
   <!-- Gmapping -->
   <node pkg="gmapping" type="slam_gmapping" name="AR_TB4WD_slam_gmapping" output="screen">
     <param name="base_frame" value="$(arg set_base_frame)"/>
@@ -39,4 +39,8 @@
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
   </node>
+  	<include file="$(find AR_TB4WD_model)/launch/model.launch"/>
+    <group if="$(arg rviz)">    
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find  AR_TB4WD_slam)/rviz/slam.rviz"/>
+    </group>
 </launch>

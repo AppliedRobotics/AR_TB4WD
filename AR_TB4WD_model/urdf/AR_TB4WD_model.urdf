@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<robot name="tb4_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<link name = "odom"/>
+	<joint name="base_joint" type="fixed">
+		<parent link="odom"/>
+		<child link="base_link"/>	 
+	</joint>
+	<link name="base_link">
+		<collision>
+			<origin xyz = "0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/base.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+		</collision>
+		<visual>
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/base.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="grey">
+    				<color rgba="0.7 0.7 0.7 1.0"/>
+  			</material>
+		</visual>
+	</link>
+	<joint name="tb4_wheel_1_joint" type="revolute">
+		<parent link="base_link"/>
+		<child link="wheel0"/>
+		<origin xyz = "0.115 0.1185 0.016" rpy="1.57 0 0" />
+		<axis xyz="0 0 1" />
+		<limit effort="1.0" lower="-3.14" upper="3.14" velocity="5.0"/>
+	</joint>
+	<link name="wheel0">
+		<collision>
+			<origin xyz = "0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_1.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+		</collision>
+		<visual>
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_1.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="grey">
+    				<color rgba="0.7 0.7 0.7 1.0"/>
+  			</material>
+		</visual>
+	</link>
+	<joint name="tb4_wheel_2_joint" type="revolute">
+		<parent link="base_link"/>
+		<child link="wheel1"/>
+		<origin xyz = "0.115 -0.1185 0.016" rpy="1.57 0 0" />
+		<axis xyz="0 0 1" />
+		<limit effort="1.0" lower="-3.14" upper="3.14" velocity="5.0"/>
+	</joint>
+	<link name="wheel1">
+		<collision>
+			<origin xyz = "0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_2.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+		</collision>
+		<visual>
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_2.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="grey">
+    				<color rgba="0.7 0.7 0.7 1.0"/>
+  			</material>
+		</visual>
+	</link>
+	<joint name="tb4_wheel_3_joint" type="revolute">
+		<parent link="base_link"/>
+		<child link="wheel2"/>
+		<origin xyz = "-0.115 0.1185 0.016" rpy="-1.57 0 0" />
+		<axis xyz="0 0 1" />
+		<limit effort="1.0" lower="-3.14" upper="3.14" velocity="5.0"/>
+	</joint>
+	<link name="wheel2">
+		<collision>
+			<origin xyz = "0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_3.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+		</collision>
+		<visual>
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_3.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="grey">
+    				<color rgba="0.7 0.7 0.7 1.0"/>
+  			</material>
+		</visual>
+	</link>
+	<joint name="tb4_wheel_4_joint" type="revolute">
+		<parent link="base_link"/>
+		<child link="wheel3"/>
+		<origin xyz = "-0.115 -0.1185 0.016" rpy="-1.57 0 0" />
+		<axis xyz="0 0 1" />
+		<limit effort="1.0" lower="-3.14" upper="3.14" velocity="5.0"/>
+	</joint>
+	<link name="wheel3">
+		<collision>
+			<origin xyz = "0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_4.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+		</collision>
+		<visual>
+			<geometry>
+				<mesh filename="package://AR_TB4WD_model/meshes/wheel_4.stl" scale="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="grey">
+    				<color rgba="0.7 0.7 0.7 1.0"/>
+  			</material>
+		</visual>
+	</link>
+
+	<joint name="tb4_lidar" type="fixed">
+		<parent link="base_link"/>
+		<child link="laser"/>
+		<origin xyz = "0.09 0 0.13" rpy="0 0 3.14" />
+	</joint>
+	<link name="laser">
+	</link>
+
+	<joint name="tb4_left_tc3" type="fixed">
+		<parent link="base_link"/>
+		<child link="left_tc3_link"/>
+		<origin xyz = "0 0.175 0.235" rpy="-1.57 -1.57 0" />
+	</joint>
+	
+	<link name="left_tc3_link">
+	</link>
+
+	<joint name="tb4_right_tc3" type="fixed">
+		<parent link="base_link"/>
+		<child link="right_tc3_link"/>
+		<origin xyz = "0 -0.175 0.235" rpy="1.57 -1.57 0" />
+	</joint>
+	
+	<link name="right_tc3_link">
+	</link>
+</robot>

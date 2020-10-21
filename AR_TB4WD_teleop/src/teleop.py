@@ -110,11 +110,11 @@ if __name__=="__main__":
                 target_angular_vel = checkAngularLimitVelocity(target_angular_vel + 0.06)
                 status = status + 1
                 print (vels(target_linear_vel,target_y_vel,target_angular_vel))
-            elif key == 'q':
+            elif key == 'e':
             	target_y_vel = checkYLimitVelocity(target_y_vel - 0.04)
             	status = status+1
             	print (vels(target_linear_vel,target_y_vel, target_angular_vel))
-            elif key == 'e':
+            elif key == 'q':
             	target_y_vel = checkYLimitVelocity(target_y_vel + 0.04)
             	status = status+1
             	print (vels(target_linear_vel,target_y_vel, target_angular_vel))

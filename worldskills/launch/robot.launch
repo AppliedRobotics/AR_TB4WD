@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find AR_TB4WD_bringup)/launch/base_process.launch"/>
+   <include file="$(find tc3-ros-package)/launch/multiply_tc3.launch"/>
+   <include file="$(find worldskills)/launch/ws.launch"/>
+</launch>

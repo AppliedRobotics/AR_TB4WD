@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="worldskills" type="move.py" name="moving_ws" output="screen"/>
+  <node pkg="worldskills" type="udp_client.py" name="udp_client" output="screen"/>
+</launch>

@@ -15,7 +15,7 @@ def lidar_cb(data):
 	current_angle = data.angle_min
 	i = 0
 	for range in data.ranges:
-		if((i >= 30 and i <= 40) or (i>=75 and i <=90) or (i>=265 and i <= 280) or (i>=310 and i <=320)):
+		if((i >= 30 and i <= 45) or (i>=75 and i <=90) or (i>=265 and i <= 280) or (i>=305 and i <=325)):
 			msg.ranges.append(0)
 			msg.intensities.append(0)
 		else:
