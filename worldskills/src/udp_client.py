@@ -11,6 +11,7 @@ UDP_PORT_IN = 8888
 UDP_PORT_OUT = 8888
 UDP_SERVER_ADDRESS = 'rp' #rp adress
 UDP_CLIENT_ADDRESS = 'pc' #pc adress
+last_ip = "240"
 MAX_UDP_PACKET=128 # max size of incoming packet to avoid sending too much data to the micro
 
 udp_socket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
@@ -66,7 +67,7 @@ if __name__ == '__main__':
                 # udp_socket.sendto("S:211:"+str(1)+":"+str(1)+"#\n".encode(), (UDP_CLIENT_ADDRESS, UDP_PORT_OUT)) 
                 # zone_pub.publish(zone) 
                 # move_pub.publish(move_flag)
-                payload = "S:240:"+str(status)+":"+str(zone)+"#\n"
+                payload = "S:"+last_ip+":"+str(status)+":"+str(zone)+"#\n"
                 udp_socket.sendto(payload.encode(), (UDP_CLIENT_ADDRESS, UDP_PORT_OUT))
             rate.sleep()
         except KeyboardInterrupt:
