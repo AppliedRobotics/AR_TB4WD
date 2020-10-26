@@ -107,10 +107,7 @@ class LineController:
 			self.speed_publisher(0,0,0)
 			return(True)
 		else:
-			if(self.target_marker < 2):
-				self.speed_publisher(up_x-0.04, -0.16, 0)
-			else:
-				self.speed_publisher(up_x+0.1, -0.16, 0)
+			self.speed_publisher(up_x, -0.12, 0)
 			return(False)
 	def to_park_right(self):
 		left = self.goal_light[1][1] + self.goal_light[1][2] + self.goal_light[1][3] + self.goal_light[1][4] + self.goal_light[1][5]  + self.goal_light[1][0] + self.goal_light[1][6]
