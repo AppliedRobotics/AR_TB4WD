@@ -9,4 +9,5 @@
     <param name="frame_id" value="laser"/>
     <remap from="scan" to="scan_bad"/>
   </node>
+  <include file="$(find tc3-ros-package)/launch/multiply_tc3.launch" />
 </launch>

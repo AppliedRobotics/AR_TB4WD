@@ -169,9 +169,9 @@ class LineController:
 				self.speed_publisher(0,0,0)
 				self.count = self.count + 1
 	def parallel_parking_left(self):
-		error_z = self.ranges[228] - self.ranges[305]
+		error_z = self.ranges[235] - self.ranges[300]
 		up_z = 3.5*error_z
-		error_y = self.ranges[228] + self.ranges[305] - 0.45
+		error_y = self.ranges[235] + self.ranges[300] - 0.45
 		up_y = -error_y
 		if abs(up_y) > 0.08:
 			up_y = self.sign(up_y)*0.08
@@ -199,9 +199,9 @@ class LineController:
 		self.speed_publisher(up_x,up_y,up_z)
 		self.state = 5
 	def parallel_parking_right(self):
-		error_z = self.ranges[45] - self.ranges[125] 
+		error_z = self.ranges[46] - self.ranges[125] 
 		up_z = 3.5*error_z
-		error_y = self.ranges[45] + self.ranges[125] - 0.48
+		error_y = self.ranges[46] + self.ranges[125] - 0.48
 		up_y = error_y
 		if abs(up_y) > 0.05:
 			up_y = self.sign(up_y)*0.05

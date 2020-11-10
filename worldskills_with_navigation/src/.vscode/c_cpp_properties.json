@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/rodion/PROJECTS/BIG_turtlebot/catkin_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
+        "/home/rodion/PROJECTS/BIG_turtlebot/catkin_ws/src/AR_TB4WD/hls_lfcd_lds_driver/include/**",
+        "/home/rodion/PROJECTS/BIG_turtlebot/catkin_ws/src/AR_TB4WD/tc3-ros-package/tc3-ros-package/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ]
+}

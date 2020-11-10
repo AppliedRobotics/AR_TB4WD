@@ -68,6 +68,9 @@ if __name__ == '__main__':
                 # move_pub.publish(move_flag)
                 payload = "S:240:"+str(status)+":"+str(zone)+"#\n"
                 udp_socket.sendto(payload.encode(), (UDP_CLIENT_ADDRESS, UDP_PORT_OUT))
+            command_msg.data = [1, 2]
+            command_pub.publish(command_msg)
+
             rate.sleep()
         except KeyboardInterrupt:
             udp_socket.close()
