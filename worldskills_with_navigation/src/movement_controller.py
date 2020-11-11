@@ -16,6 +16,7 @@ from std_msgs.msg import UInt32MultiArray, Int16MultiArray, Int16, Bool
 from sensor_msgs.msg import LaserScan
 from aruco_msgs.msg import Marker, MarkerArray
 from nav_msgs.srv import GetMap, GetPlan
+from std_srvs.srv import Empty
 import tf
 from math import pi, cos, sin, sqrt, atan2
 import numpy as np
@@ -41,6 +42,7 @@ class Mobile_Robot_Machine():
 		
 		self.client_move_base = actionlib.SimpleActionClient('move_base',MoveBaseAction)
 		self.client_move_base.wait_for_server()
+		self.client_clear_costmap = rospy.ServiceProxy('/move_base_node/clear_costmaps', Empty)
 		print("succeded connect to move base")
 		self.points_coordinates = self.get_points_coordinates()
 		print("get points coordinates")
@@ -74,31 +76,35 @@ class Mobile_Robot_Machine():
 		if self.park_flag == 2:
 			self.parallel_parking_right()
 	def command_cb(self,data):
-		if data.data[0] == 1 and data.data[1] != self.state: # mean you can move and not already parked on the target zone
-			target_point = self.points_coordinates["p_"+str(data.data[1])]
+		self.command_start(data.data[0], data.data[1])
+	def command_start(self, enable, zone):
+		if enable == 1 and zone != self.state: # mean you can move and not already parked on the target zone
+			target_point = self.points_coordinates["p_"+str(zone)]
 			result = self.reach_goal(target_point)
 			if result == 3:
-				self.parking(data.data[1])
-				self.state = data.data[1]
+				self.parking(zone)
+				self.state = zone
 				self.status_msg.data = self.state
 				self.status_pub.publish(self.status_msg)
 			else:
-				a = 1 
-				#clear costmap and repeat the goal action
+				print("can't reach goal, clearing costmap")
+				self.client_clear_costmap()
+				self.command_start(enable, zone)
+
 	def parking(self,zone):
 		if zone == 1 or zone == 2:
 			self.park_flag = 1
 			while self.done_parking == False:
 				sleep(0.1)
 			print("parking confirmed")
-			self.done_parking = True
+			self.done_parking = False
 			self.park_flag = 0
 			self.speed_publisher(0,0,0)
 		elif zone > 0 and zone < 7:
 			self.park_flag = 2
 			while self.done_parking == False:
 				sleep(0.1)
-			self.done_parking = True
+			self.done_parking = False
 			print("parking confirmed")
 			self.park_flag = 0
 			self.speed_publisher(0,0,0)

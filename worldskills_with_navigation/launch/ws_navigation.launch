@@ -1,0 +1,10 @@
+<launch>
+	<node pkg="worldskills_with_navigation" type="movement_controller.py" name="moving_ws" output="screen"/>
+  	
+  	<node pkg="worldskills_with_navigation" type="udp_client.py" name="udp_client" output="screen"/>
+  	
+  	<include file="$(find AR_TB4WD_navigation)/launch/navigation.launch">
+		<arg name="rviz" value="True"/>
+		<arg name="map_name" value="worldskills_field_map"/>
+  	</include>
+</launch>
